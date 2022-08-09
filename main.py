@@ -30,7 +30,7 @@ async def about_message(message: types.Message):
 async def translate_user_message(message: types.Message):
     result = UserInput().get_translation(message.text)
     if result:
-        await message.answer(result)
+        await message.answer(f'{result[0]}, {result[1]}')
     else:
         await message.answer(messages.fail_repeat)
 
