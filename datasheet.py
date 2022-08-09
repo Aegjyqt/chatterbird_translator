@@ -42,11 +42,18 @@ class Datasheet:
         sheet_keys = []
         sheet_items = []
         for row in range(self.SheetNav.first_row, sheet.max_row):
-            if sheet[row][self.SheetNav.keys_column].value and sheet[row][self.SheetNav.items_column].value and sheet[row][self.SheetNav.relevance_column].value:
-                key = sheet[row][self.SheetNav.keys_column].value.lower().replace("\"", "")
+            row_data = sheet[row]
+
+            if all((
+                    row_data[self.SheetNav.keys_column].value,  # Проверка на наличие элемента...
+                    row_data[self.SheetNav.items_column].value,
+                    row_data[self.SheetNav.relevance_column].value
+            )):
+                key = row_data[self.SheetNav.keys_column].value.lower().replace("\"", "")
                 sheet_keys.append(key)
-                sheet_items.append(sheet[row][self.SheetNav.items_column].value)
-                item_with_relevance = [hcode(sheet_items[sheet_keys.index(key)]), f"актуальность: {sheet[row][self.SheetNav.relevance_column].value}"]
+                sheet_items.append(row_data[self.SheetNav.items_column].value)
+                # TODO: Убрать вхардкоженные строки внутри сущности
+                item_with_relevance = [hcode(sheet_items[sheet_keys.index(key)]), f"актуальность: {row_data[self.SheetNav.relevance_column].value}"]
                 self._datasheet_dict[key] = item_with_relevance
 
     def access_datasheet_dict(self) -> dict:
