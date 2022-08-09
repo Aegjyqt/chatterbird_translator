@@ -27,5 +27,5 @@ class Database:
 
 
 datasheets = ['управление', 'факультет']
-chatterbird_database = Database(workbook_path='lists_for_chatterbird.xlsx', datasheets_list=['управление', 'факультет'])
+chatterbird_database = Database(workbook_path='lists_for_chatterbird.xlsx', datasheets_list=datasheets)
 chatterbird_database.make_database()
